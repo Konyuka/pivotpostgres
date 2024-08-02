@@ -3,7 +3,6 @@
 !/database/migrations/note.txt
 /.phpunit.cache
 
-/public
 /track
 
 /node_modules
@@ -12,7 +11,6 @@
 /public/storage
 /storage
 /vendor
-.env
 .env.backup
 .env.production
 .phpunit.result.cache
@@ -25,7 +23,5 @@ yarn-error.log
 /.idea
 /.vscode
 
-Pivot HRM.zip
-vendorSAAS.zip
 # git rm -r --cached database/migrations
 
