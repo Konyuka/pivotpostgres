@@ -14,7 +14,7 @@ class GeneralSettingSeeder extends Seeder
     {
         GeneralSetting::truncate();
 
-        $siteTitle = "Pivot HRM";
+        $siteTitle = "PivotHRM";
         $timeZone = "Africa/Nairobi";
         $dateFormat = "d-m-Y";
 
