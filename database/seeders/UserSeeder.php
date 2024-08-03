@@ -14,34 +14,34 @@ class UserSeeder extends Seeder
     {
 		User::insert([
             [
-                'first_name'=>'Mr',
+                'first_name'=>'Super',
                 'last_name'=>'Admin',
                 'username'=> 'admin',
                 'email'=> 'admin@gmail.com',
                 'password'=> bcrypt('admin'),
                 'role_users_id'=> 1,
                 'is_active'=> true,
-                'contact_no'=> 123456789
+                'contact_no'=> 0712200200
             ],
             [
-                'first_name'=>'Mr',
+                'first_name'=>'Dummy',
                 'last_name'=>'Employee',
                 'username'=> 'employee',
                 'email'=> 'employee@gmail.com',
                 'password'=> bcrypt('employee'),
                 'role_users_id'=> 2,
                 'is_active'=> true,
-                'contact_no'=> 987654321
+                'contact_no'=> 0712200200
             ],
             [
-                'first_name'=>'Mr',
-                'last_name'=>'Client',
+                'first_name'=>'Client',
+                'last_name'=>'Admin',
                 'username'=> 'client',
                 'email'=> 'client@gmail.com',
                 'password'=> bcrypt('client'),
                 'role_users_id'=> 1,
                 'is_active'=> true,
-                'contact_no'=> 123987456
+                'contact_no'=> 0712200200
             ],
         ]);
     }
