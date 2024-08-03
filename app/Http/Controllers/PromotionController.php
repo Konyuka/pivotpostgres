@@ -113,8 +113,8 @@ class PromotionController extends Controller {
 			$data['company_id'] = $request->company_id;
 			$data ['promotion_title'] = $request->promotion_title;
 			$data ['description'] = $request->description;
-			// $data ['promotion_date'] = $request->promotion_date;
-			$data['promotion_date'] = Carbon::createFromFormat('d-M-Y', $request->promotion_date)->format('Y-m-d');
+			$data ['promotion_date'] = $request->promotion_date;
+			// $data['promotion_date'] = Carbon::createFromFormat('d-M-Y', $request->promotion_date)->format('Y-m-d');
 
 			Promotion::create($data);
 
