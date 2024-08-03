@@ -25,3 +25,4 @@ yarn-error.log
 /.vscode
 
 # git rm -r --cached database/migrations
+.env
