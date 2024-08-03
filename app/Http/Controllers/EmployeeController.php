@@ -236,8 +236,8 @@ class EmployeeController extends Controller
                 $data['first_name'] = $request->first_name;
                 $data['last_name'] = $request->last_name;
                 $data['staff_id'] = $request->staff_id;
-                // $data['date_of_birth'] = $request->date_of_birth;
-                $data['date_of_birth'] = Carbon::createFromFormat('d-M-Y', $request->date_of_birth)->format('Y-m-d');
+                $data['date_of_birth'] = $request->date_of_birth;
+                // $data['date_of_birth'] = Carbon::createFromFormat('d-M-Y', $request->date_of_birth)->format('Y-m-d');
                 $data['gender'] = $request->gender;
                 $data['department_id'] = $request->department_id;
                 $data['company_id'] = $request->company_id;
@@ -248,8 +248,8 @@ class EmployeeController extends Controller
                 $data['role_users_id'] = $request->role_users_id;
                 $data['contact_no'] = $request->contact_no;
                 $data['attendance_type'] = $request->attendance_type; //new
-                // $data['joining_date'] = $request->joining_date; 
-                $data['joining_date'] = Carbon::createFromFormat('d-M-Y', $request->joining_date)->format('Y-m-d');
+                $data['joining_date'] = $request->joining_date; 
+                // $data['joining_date'] = Carbon::createFromFormat('d-M-Y', $request->joining_date)->format('Y-m-d');
                 $data['is_active'] = 1;
 
                 $user = [];
