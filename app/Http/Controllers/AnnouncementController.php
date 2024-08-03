@@ -109,10 +109,10 @@ class AnnouncementController extends Controller {
 			$data = [];
 
 			$data['title'] = $request->title;
-			// $data['start_date'] = $request->start_date;
-			// $data['end_date'] = $request->end_date;
-			$data['start_date'] = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
-			$data['end_date'] = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
+			$data['start_date'] = $request->start_date;
+			$data['end_date'] = $request->end_date;
+			// $data['start_date'] = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
+			// $data['end_date'] = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
 			$data['summary'] = $request->summary;
 			$data['description'] = $request->description;
 			$data['company_id'] = $request->company_id;

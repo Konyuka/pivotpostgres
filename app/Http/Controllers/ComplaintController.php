@@ -109,8 +109,8 @@ class ComplaintController extends Controller {
 			$data['complaint_title'] = $request->complaint_title;
 			$data ['description'] = $request->description;
 			$data ['status'] = 'Yes';
-			// $data ['complaint_date'] = $request->complaint_date;
-			$data['complaint_date'] = Carbon::createFromFormat('d-M-Y', $request->complaint_date)->format('Y-m-d');
+			$data ['complaint_date'] = $request->complaint_date;
+			// $data['complaint_date'] = Carbon::createFromFormat('d-M-Y', $request->complaint_date)->format('Y-m-d');
 
 			Complaint::create($data);
 

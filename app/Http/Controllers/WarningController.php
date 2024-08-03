@@ -120,8 +120,8 @@ class WarningController extends Controller {
 			$data['subject'] = $request->subject;
 			$data ['description'] = $request->description;
 			$data ['status'] = $request->status;;
-			// $data ['warning_date'] = $request->warning_date;
-			$data['warning_date'] = Carbon::createFromFormat('d-M-Y', $request->warning_date)->format('Y-m-d');
+			$data ['warning_date'] = $request->warning_date;
+			// $data['warning_date'] = Carbon::createFromFormat('d-M-Y', $request->warning_date)->format('Y-m-d');
 
 			Warning::create($data);
 

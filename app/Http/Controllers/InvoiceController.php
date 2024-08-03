@@ -160,10 +160,10 @@ class InvoiceController extends Controller
 				$data['discount_figure'] = $request->discount_figure;
 				$data['total_discount'] = $request->discount_amount;
 				$data['total_tax'] = $request->items_tax_total;
-				// $data['invoice_date'] = $request->invoice_date;
-				// $data['invoice_due_date'] = $request->invoice_due_date;
-				$data['invoice_date'] = Carbon::createFromFormat('d-M-Y', $request->invoice_date)->format('Y-m-d');
-				$data['invoice_due_date'] = Carbon::createFromFormat('d-M-Y', $request->invoice_due_date)->format('Y-m-d');
+				$data['invoice_date'] = $request->invoice_date;
+				$data['invoice_due_date'] = $request->invoice_due_date;
+				// $data['invoice_date'] = Carbon::createFromFormat('d-M-Y', $request->invoice_date)->format('Y-m-d');
+				// $data['invoice_due_date'] = Carbon::createFromFormat('d-M-Y', $request->invoice_due_date)->format('Y-m-d');
 				$data['grand_total'] = $request->grand_total;
 				$data['invoice_note'] = $request->invoice_note;
 				$data['status'] = 0;

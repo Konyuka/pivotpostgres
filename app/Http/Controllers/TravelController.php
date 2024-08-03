@@ -123,10 +123,10 @@ class TravelController extends Controller {
 			$data['expected_budget'] = $request->expected_budget;
 			$data ['actual_budget'] = $request->actual_budget;
 			$data ['status'] = $request->status;
-			$data['start_date'] = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
-			$data['end_date'] = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
-			// $data ['start_date'] = $request->start_date;
-			// $data ['end_date'] = $request->end_date;
+			// $data['start_date'] = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
+			// $data['end_date'] = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
+			$data ['start_date'] = $request->start_date;
+			$data ['end_date'] = $request->end_date;
 
 
 			$travel = Travel::create($data);

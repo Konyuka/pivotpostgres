@@ -128,8 +128,8 @@ class MeetingController extends Controller {
 			$data ['meeting_note'] = $request->meeting_note;
 			$data ['status'] = $request->status;
 			$data ['is_notify'] = $request->is_notify;
-			// $data ['meeting_date'] = $request->meeting_date;
-			$data['meeting_date'] = Carbon::createFromFormat('d-M-Y', $request->meeting_date)->format('Y-m-d');
+			$data ['meeting_date'] = $request->meeting_date;
+			// $data['meeting_date'] = Carbon::createFromFormat('d-M-Y', $request->meeting_date)->format('Y-m-d');
 			$data ['meeting_time'] = $request->meeting_time;
 
 			$meeting = Meeting::create($data);

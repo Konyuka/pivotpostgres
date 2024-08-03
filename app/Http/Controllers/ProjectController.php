@@ -126,10 +126,10 @@ class ProjectController extends Controller {
 			$data['title'] = $request->title;
 			$data['company_id'] = $request->company_id;
 			$data['client_id'] = $request->client_id;
-			// $data ['start_date'] = $request->start_date;
-			// $data ['end_date'] = $request->end_date;
-			$data['start_date'] = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
-			$data['end_date'] = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
+			$data ['start_date'] = $request->start_date;
+			$data ['end_date'] = $request->end_date;
+			// $data['start_date'] = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
+			// $data['end_date'] = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
 
 			$data ['description'] = $request->description;
 			$data ['project_priority'] = $request->project_priority;

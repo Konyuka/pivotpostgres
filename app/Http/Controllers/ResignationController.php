@@ -106,10 +106,10 @@ class ResignationController extends Controller {
 			$data['company_id'] = $request->company_id;
 			$data['department_id'] = $request->department_id;
 			$data['description'] = $request->description;
-			$data['resignation_date'] = Carbon::createFromFormat('d-M-Y', $request->resignation_date)->format('Y-m-d');
-			$data['notice_date'] = Carbon::createFromFormat('d-M-Y', $request->notice_date)->format('Y-m-d');
-			// $data['resignation_date'] = $request->resignation_date;
-			// $data['notice_date'] = $request->notice_date;
+			// $data['resignation_date'] = Carbon::createFromFormat('d-M-Y', $request->resignation_date)->format('Y-m-d');
+			// $data['notice_date'] = Carbon::createFromFormat('d-M-Y', $request->notice_date)->format('Y-m-d');
+			$data['resignation_date'] = $request->resignation_date;
+			$data['notice_date'] = $request->notice_date;
 			Resignation::create($data);
             $this->employeeLeaveDateSet($request->employee_id, $request->resignation_date);
 			$notifiable = User::findOrFail($data['employee_id']);

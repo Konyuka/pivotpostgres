@@ -111,8 +111,8 @@ class JobPostController extends Controller {
 			$data['job_category_id'] = $request->job_category_id;
 			$data['job_type'] = $request->job_type;
 			$data['no_of_vacancy'] = $request->no_of_vacancy;
-			// $data['closing_date'] = $request->closing_date;
-			$data['closing_date'] = Carbon::createFromFormat('d-M-Y', $request->closing_date)->format('Y-m-d');
+			$data['closing_date'] = $request->closing_date;
+			// $data['closing_date'] = Carbon::createFromFormat('d-M-Y', $request->closing_date)->format('Y-m-d');
 			$data['gender'] = $request->gender;
 			$data['min_experience'] = $request->min_experience;
 			$data['status'] = $request->status;

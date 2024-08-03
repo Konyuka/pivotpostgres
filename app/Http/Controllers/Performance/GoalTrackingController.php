@@ -92,10 +92,10 @@ class GoalTrackingController extends Controller
                 $goal_tracking->subject      = $request->subject;   
                 $goal_tracking->target_achievement = $request->target_achievement;
                 $goal_tracking->description  = $request->description;
-                // $goal_tracking->start_date   = $request->start_date;
-                // $goal_tracking->end_date     = $request->end_date;
-                $goal_tracking->start_date = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
-                $goal_tracking->end_date = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
+                $goal_tracking->start_date   = $request->start_date;
+                $goal_tracking->end_date     = $request->end_date;
+                // $goal_tracking->start_date = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
+                // $goal_tracking->end_date = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
                 $goal_tracking->progress = 0;
                 $goal_tracking->save();
 
