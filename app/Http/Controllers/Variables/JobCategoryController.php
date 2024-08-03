@@ -50,7 +50,7 @@ class JobCategoryController extends Controller
 		{
 			$validator = Validator::make($request->only('job_category'),
 				[
-					'job_category' => 'required|unique:job_categories',
+					'job_category' => 'required|unique:job_categories'
 				]
 //				,
 //				[
@@ -68,7 +68,10 @@ class JobCategoryController extends Controller
 			$data = [];
 
 			$data['job_category'] = $request->get('job_category');
-			$data['url'] = Str::random('20');
+			$data['url'] = (string) Str::uuid();
+			// $data['url'] = Str::random('20');
+
+			// dd($data);
 			JobCategory::create($data);
 
 			return response()->json(['success' => __('Data Added successfully.')]);

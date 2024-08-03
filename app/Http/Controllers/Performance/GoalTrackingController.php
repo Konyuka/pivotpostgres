@@ -7,6 +7,7 @@ use App\Models\GoalTracking;
 use App\Models\GoalType;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -91,8 +92,11 @@ class GoalTrackingController extends Controller
                 $goal_tracking->subject      = $request->subject;   
                 $goal_tracking->target_achievement = $request->target_achievement;
                 $goal_tracking->description  = $request->description;
-                $goal_tracking->start_date   = $request->start_date;
-                $goal_tracking->end_date     = $request->end_date;
+                // $goal_tracking->start_date   = $request->start_date;
+                // $goal_tracking->end_date     = $request->end_date;
+                $goal_tracking->start_date = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
+                $goal_tracking->end_date = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
+                $goal_tracking->progress = 0;
                 $goal_tracking->save();
 
                 return response()->json(['success' => '<p><b>Data Saved Successfully.</b></p>']);

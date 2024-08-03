@@ -10,6 +10,7 @@ use App\Models\Warning;
 use App\Models\WarningType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class WarningController extends Controller {
@@ -119,7 +120,8 @@ class WarningController extends Controller {
 			$data['subject'] = $request->subject;
 			$data ['description'] = $request->description;
 			$data ['status'] = $request->status;;
-			$data ['warning_date'] = $request->warning_date;
+			// $data ['warning_date'] = $request->warning_date;
+			$data['warning_date'] = Carbon::createFromFormat('d-M-Y', $request->warning_date)->format('Y-m-d');
 
 			Warning::create($data);
 

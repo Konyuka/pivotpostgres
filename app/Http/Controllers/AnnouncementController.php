@@ -10,6 +10,7 @@ use App\Notifications\AnnouncementPublished;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
@@ -90,7 +91,7 @@ class AnnouncementController extends Controller {
 		{
 			$validator = Validator::make($request->only('title', 'start_date', 'end_date', 'summary', 'description', 'is_notify', 'company_id', 'department_id', 'is_active'),
 				[
-					'title' => 'required|unique:announcements,title,',
+					'title' => 'required|unique:announcements,title',
 					'start_date' => 'required',
 					'end_date' => 'required',
 					'company_id' => 'required',
@@ -108,8 +109,10 @@ class AnnouncementController extends Controller {
 			$data = [];
 
 			$data['title'] = $request->title;
-			$data['start_date'] = $request->start_date;
-			$data['end_date'] = $request->end_date;
+			// $data['start_date'] = $request->start_date;
+			// $data['end_date'] = $request->end_date;
+			$data['start_date'] = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
+			$data['end_date'] = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
 			$data['summary'] = $request->summary;
 			$data['description'] = $request->description;
 			$data['company_id'] = $request->company_id;
@@ -123,7 +126,7 @@ class AnnouncementController extends Controller {
 			$data['added_by'] = $logged_user->username;
 			$data['is_notify'] = $request->is_notify;
 
-
+			// dd($data);
 			Announcement::create($data);
 
 			if ($data['department_id'] == null)

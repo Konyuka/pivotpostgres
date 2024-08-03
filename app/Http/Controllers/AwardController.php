@@ -11,6 +11,7 @@ use App\Notifications\EmployeeAwardNotify;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class AwardController extends Controller {
@@ -118,7 +119,8 @@ class AwardController extends Controller {
 			$data ['award_information'] = $request->award_information;
 			$data ['gift'] = $request->gift;
 			$data ['cash'] = $request->cash;
-			$data ['award_date'] = $request->award_date;
+			// $data ['award_date'] = $request->award_date;
+			$data['award_date'] = Carbon::createFromFormat('d-M-Y', $request->award_date)->format('Y-m-d');
 
 
 			$photo = $request->award_photo;

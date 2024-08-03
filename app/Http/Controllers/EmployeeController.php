@@ -18,6 +18,7 @@ use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -41,8 +42,8 @@ class EmployeeController extends Controller
                 ->where('is_active', 1)
                 ->where(function($query) use ($currentDate) {
                     $query->whereNull('exit_date')
-                    ->orWhere('exit_date', '>=', $currentDate)
-                    ->orWhere('exit_date', '0000-00-00');
+                    ->orWhere('exit_date', '>=', $currentDate);
+                    // ->orWhere('exit_date', '0000-00-00');
                 })
                 ->get();
         } elseif ($request->company_id && $request->department_id && $request->designation_id) {
@@ -53,8 +54,8 @@ class EmployeeController extends Controller
                 ->where('is_active', 1)
                 ->where(function($query) use ($currentDate) {
                     $query->whereNull('exit_date')
-                    ->orWhere('exit_date', '>=', $currentDate)
-                    ->orWhere('exit_date', '0000-00-00');
+                    ->orWhere('exit_date', '>=', $currentDate);
+                    // ->orWhere('exit_date', '0000-00-00');
                 })
                 ->get();
         } elseif ($request->company_id && $request->department_id) {
@@ -64,8 +65,8 @@ class EmployeeController extends Controller
                 ->where('is_active', 1)
                 ->where(function($query) use ($currentDate) {
                     $query->whereNull('exit_date')
-                    ->orWhere('exit_date', '>=', $currentDate)
-                    ->orWhere('exit_date', '0000-00-00');
+                    ->orWhere('exit_date', '>=', $currentDate);
+                    // ->orWhere('exit_date', '0000-00-00');
                 })
                 ->get();
         } elseif ($request->company_id && $request->office_shift_id) {
@@ -75,8 +76,8 @@ class EmployeeController extends Controller
                 ->where('is_active', 1)
                 ->where(function($query) use ($currentDate) {
                     $query->whereNull('exit_date')
-                    ->orWhere('exit_date', '>=', $currentDate)
-                    ->orWhere('exit_date', '0000-00-00');
+                    ->orWhere('exit_date', '>=', $currentDate);
+                    // ->orWhere('exit_date', '0000-00-00');
                 })
                 ->get();
         } elseif ($request->company_id) {
@@ -85,8 +86,8 @@ class EmployeeController extends Controller
                 ->where('is_active', 1)
                 ->where(function($query) use ($currentDate) {
                     $query->whereNull('exit_date')
-                    ->orWhere('exit_date', '>=', $currentDate)
-                    ->orWhere('exit_date', '0000-00-00');
+                    ->orWhere('exit_date', '>=', $currentDate);
+                    // ->orWhere('exit_date', '0000-00-00');
                 })
                 ->get();
         } else {
@@ -95,8 +96,8 @@ class EmployeeController extends Controller
                 ->where('is_active', 1)
                 ->where(function($query) use ($currentDate) {
                     $query->whereNull('exit_date')
-                    ->orWhere('exit_date', '>=', $currentDate)
-                    ->orWhere('exit_date', '0000-00-00');
+                    ->orWhere('exit_date', '>=', $currentDate);
+                    // ->orWhere('exit_date', '0000-00-00');
                 })
                 ->get();
         }
@@ -106,15 +107,17 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
+
         $logged_user = auth()->user();
         if ($logged_user->can('view-details-employee')) {
             $companies = company::select('id', 'company_name')->get();
             $roles = Role::where('id', '!=', 3)->where('is_active', 1)->select('id', 'name')->get();
             $currentDate = date('Y-m-d');
 
+            
             if (request()->ajax()) {
-
-
+                
+                
                 $employees = $this->getEmployees($request, $currentDate);
 
                 return datatables()->of($employees)
@@ -233,7 +236,8 @@ class EmployeeController extends Controller
                 $data['first_name'] = $request->first_name;
                 $data['last_name'] = $request->last_name;
                 $data['staff_id'] = $request->staff_id;
-                $data['date_of_birth'] = $request->date_of_birth;
+                // $data['date_of_birth'] = $request->date_of_birth;
+                $data['date_of_birth'] = Carbon::createFromFormat('d-M-Y', $request->date_of_birth)->format('Y-m-d');
                 $data['gender'] = $request->gender;
                 $data['department_id'] = $request->department_id;
                 $data['company_id'] = $request->company_id;
@@ -244,7 +248,8 @@ class EmployeeController extends Controller
                 $data['role_users_id'] = $request->role_users_id;
                 $data['contact_no'] = $request->contact_no;
                 $data['attendance_type'] = $request->attendance_type; //new
-                $data['joining_date'] = $request->joining_date; //new
+                // $data['joining_date'] = $request->joining_date; 
+                $data['joining_date'] = Carbon::createFromFormat('d-M-Y', $request->joining_date)->format('Y-m-d');
                 $data['is_active'] = 1;
 
                 $user = [];

@@ -4,7 +4,7 @@ return [
 
 //	'date_format' => '',
 
-	'currency' => '$',
+	'currency' => 'KES',
 	'currency_format' => 'prefix',
 	'account_id' => 1,
 

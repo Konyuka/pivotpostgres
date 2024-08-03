@@ -84,7 +84,7 @@ class PolicyController extends Controller {
 		{
 			$validator = Validator::make($request->only('title', 'company_id', 'description'),
 				[
-					'title' => 'required|unique:policies,title,',
+					'title' => 'required|unique:policies,title',
 					'company_id' => 'required'
 				]
 			);

@@ -10,6 +10,7 @@ use App\Notifications\EventNotify;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
@@ -116,7 +117,8 @@ class EventController extends Controller {
 			$data ['event_note'] = $request->event_note;
 			$data ['status'] = $request->status;
 			$data ['is_notify'] = $request->is_notify;
-			$data ['event_date'] = $request->event_date;
+			// $data ['event_date'] = $request->event_date;
+			$data['event_date'] = Carbon::createFromFormat('d-M-Y', $request->event_date)->format('Y-m-d');
 			$data ['event_time'] = $request->event_time;
 
 			Event::create($data);

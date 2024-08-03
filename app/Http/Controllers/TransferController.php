@@ -10,6 +10,7 @@ use App\Models\Transfer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class TransferController extends Controller {
@@ -123,7 +124,9 @@ class TransferController extends Controller {
 			$data['from_department_id'] = $request->from_department_id;
 			$data['to_department_id'] = $request->to_department_id;
 			$data ['description'] = $request->description;
-			$data ['transfer_date'] = $request->transfer_date;
+			$data['transfer_date'] = Carbon::createFromFormat('d-M-Y', $request->transfer_date)->format('Y-m-d');
+			// $data ['transfer_date'] = $request->transfer_date;
+			
 
 			Transfer::create($data);
 

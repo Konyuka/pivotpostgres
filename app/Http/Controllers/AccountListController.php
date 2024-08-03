@@ -72,7 +72,7 @@ class AccountListController extends Controller {
 		{
 			$validator = Validator::make($request->only('account_name', 'initial_balance', 'account_number', 'branch_code', 'bank_branch'),
 				[
-					'account_name' => 'required|unique:finance_bank_cashes,account_name,',
+					'account_name' => 'required|unique:finance_bank_cashes,account_name',
 					'initial_balance' => 'required|numeric',
 					'account_number' => 'required|numeric',
 					'branch_code' => 'required',

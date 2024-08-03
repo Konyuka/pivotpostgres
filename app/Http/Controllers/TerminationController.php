@@ -10,6 +10,7 @@ use App\Models\TerminationType;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class TerminationController extends Controller
@@ -89,8 +90,12 @@ class TerminationController extends Controller
             $data['company_id'] = $request->company_id;
             $data['termination_type'] = $request->termination_type;
             $data['description'] = $request->description;
-            $data['termination_date'] = $request->termination_date;
-            $data['notice_date'] = $request->notice_date;
+            // $data['termination_date'] = $request->termination_date;
+            // $data['notice_date'] = $request->notice_date;
+            $data['termination_date'] = Carbon::createFromFormat('d-M-Y', $request->termination_date)->format('Y-m-d');
+            $data['notice_date'] = Carbon::createFromFormat('d-M-Y', $request->notice_date)->format('Y-m-d');
+            $data['status'] = 'no status'; //added code because the column is not nullable
+            // dd($data);
             Termination::create($data);
 
             $notifiable = User::findOrFail($data['terminated_employee']);

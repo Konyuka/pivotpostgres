@@ -122,12 +122,13 @@ class ClientController extends Controller {
 			$data ['contact_no'] = $user_data['contact_no'];
 			$data ['email'] = $user_data['email'];
 			$data['is_active'] = 1;
+			$data['gender'] = 'Other';
 
 			$user = User::create($user_data);
 			$user->syncRoles(3);
 
 			$data['id'] = $user->id;
-
+			
 			client::create($data);
 
 

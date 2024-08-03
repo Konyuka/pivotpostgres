@@ -9,6 +9,7 @@ use DB;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller {
@@ -129,8 +130,10 @@ class TaskController extends Controller {
 			$data['task_name'] = $request->task_name;
 			$data['company_id'] = $request->company_id;
 			$data['project_id'] = $request->project_id;
-			$data ['start_date'] = $request->start_date;
-			$data ['end_date'] = $request->end_date;
+			// $data ['start_date'] = $request->start_date;
+			// $data ['end_date'] = $request->end_date;
+			$data['start_date'] = Carbon::createFromFormat('d-M-Y', $request->start_date)->format('Y-m-d');
+			$data['end_date'] = Carbon::createFromFormat('d-M-Y', $request->end_date)->format('Y-m-d');
 
 			$data ['description'] = $request->description;
 			$data ['added_by'] = $logged_user->id;

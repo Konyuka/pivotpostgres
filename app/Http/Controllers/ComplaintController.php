@@ -10,6 +10,7 @@ use App\Notifications\ComplaintFromNotify;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class ComplaintController extends Controller {
@@ -108,7 +109,8 @@ class ComplaintController extends Controller {
 			$data['complaint_title'] = $request->complaint_title;
 			$data ['description'] = $request->description;
 			$data ['status'] = 'Yes';
-			$data ['complaint_date'] = $request->complaint_date;
+			// $data ['complaint_date'] = $request->complaint_date;
+			$data['complaint_date'] = Carbon::createFromFormat('d-M-Y', $request->complaint_date)->format('Y-m-d');
 
 			Complaint::create($data);
 

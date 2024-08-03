@@ -62,12 +62,13 @@ class CompanyController extends Controller {
 
 	public function store(Request $request)
 	{
+		
 		if(auth()->user()->can('store-company'))
 		{
 			$validator = Validator::make($request->only('company_name', 'company_type', 'trading_name', 'registration_no', 'contact_no', 'email', 'website', 'tax_no',
 				'location_id', 'company_logo'),
 				[
-					'company_name' => 'required|unique:companies,company_name,',
+					'company_name' => 'required|unique:companies,company_name',
 					'company_type' => 'required',
 					'email' => 'email',
 					'contact_no' => 'nullable|numeric',
@@ -107,6 +108,8 @@ class CompanyController extends Controller {
 					$data['company_logo'] = $file_name;
 				}
 			}
+
+			// dd($data);
 
 
 			company::create($data);

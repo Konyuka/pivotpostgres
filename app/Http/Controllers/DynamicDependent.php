@@ -18,7 +18,14 @@ class DynamicDependent extends Controller {
 	{
 		$value = $request->get('value');
 		$dependent = $request->get('dependent');
-		$data = department::whereCompany_id($value)->groupBy('department_name')->get();
+
+		// $data = department::whereCompany_id($value)->groupBy('department_name')->get();
+
+		$data = department::select('id', 'department_name')
+			->where('company_id', $value)
+			->groupBy('id', 'department_name') 
+			->get();
+
 		$output = '';
 		foreach ($data as $row)
 		{
@@ -32,7 +39,13 @@ class DynamicDependent extends Controller {
 	{
 		$value = $request->get('value');
 		$dependent = $request->get('dependent');
-		$data = office_shift::whereCompany_id($value)->groupBy('shift_name')->get();
+
+		// $data = office_shift::whereCompany_id($value)->groupBy('shift_name')->get();
+		$data = office_shift::select('id', 'shift_name') 
+			->where('company_id', $value)
+			->groupBy('id', 'shift_name')
+			->get();
+
 		$output = '';
 		foreach ($data as $row)
 		{
@@ -84,9 +97,14 @@ class DynamicDependent extends Controller {
 	{
 		$value = $request->get('value');
 		$designation_name = $request->get('designation_name');
-		$data = designation::wheredepartment_id($value)->groupBy('designation_name')->get();
-		$output = '';
 
+		// $data = designation::wheredepartment_id($value)->groupBy('designation_name')->get();
+		$data = Designation::select('id', 'designation_name')
+			->where('department_id', $value)
+			->groupBy('id', 'designation_name') 
+			->get();
+
+		$output = '';
 		foreach ($data as $row)
 		{
 			$output .= '<option value=' . $row->id . '>' . $row->$designation_name . '</option>';
@@ -148,7 +166,13 @@ class DynamicDependent extends Controller {
 	{
 		$value = $request->get('value');
 
-		$data = JobCandidate::whereJob_id($value)->groupBy('full_name')->get();
+		// $data = JobCandidate::whereJob_id($value)->groupBy('full_name')->get();
+
+		$data = JobCandidate::select('id', 'full_name')
+			->where('job_id', $value)
+			->groupBy('id', 'full_name')
+			->get();
+		
 		$output = '';
 		foreach ($data as $row)
 		{

@@ -15,20 +15,20 @@ class GeneralSettingSeeder extends Seeder
         GeneralSetting::truncate();
 
         $siteTitle = "Pivot HRM";
-        $timeZone = "Asia/Dhaka";
+        $timeZone = "Africa/Nairobi";
         $dateFormat = "d-m-Y";
 
         GeneralSetting::create([
             'site_title' => $siteTitle,
             'site_logo'  => "logo.png",
             'time_zone' => $timeZone,
-            'currency' => "$",
+            'currency' => "KES",
             'currency_format' => "prefix",
             'default_payment_bank' => 1,
             'date_format' => $dateFormat,
             'theme' => "default.css",
-            'footer' => "Saiba",
-            'footer_link' => "https://www.lion-coders.com",
+            'footer' => "Acentria Group",
+            'footer_link' => "https://www.acentriagroup.com",
         ]);
 
         //writting timezone info in .env file
