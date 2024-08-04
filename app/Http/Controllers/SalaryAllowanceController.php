@@ -19,8 +19,11 @@ class SalaryAllowanceController extends Controller {
 			if (request()->ajax())
 			{
 				$salaryAllowance = SalaryAllowance::where('employee_id', $employee->id)
-												->orderByRaw('DATE_FORMAT(first_date, "%y-%m")')
-												->get();
+					->orderByRaw("to_char(first_date, 'YY-MM')")
+					->get();
+				// $salaryAllowance = SalaryAllowance::where('employee_id', $employee->id)
+				// 								->orderByRaw('DATE_FORMAT(first_date, "%y-%m")')
+				// 								->get();
 
 				return datatables()->of($salaryAllowance)
 					->setRowId(function ($allowance)

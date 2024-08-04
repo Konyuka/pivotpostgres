@@ -249,7 +249,7 @@ class DashboardController extends Controller {
 			$general_skills = QualificationSkill::select('id', 'name')->get();
 
 			$salary_basics = SalaryBasic::where('employee_id', $employee->id)
-                                        ->orderByRaw('DATE_FORMAT(first_date, "%y-%m")')
+                                        ->orderByRaw("TO_CHAR(first_date, 'YY-MM')")
                                         ->get();
 
 			return view('profile.employee_profile', compact('user', 'employee', 'statuses',

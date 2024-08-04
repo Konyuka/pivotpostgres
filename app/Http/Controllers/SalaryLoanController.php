@@ -17,7 +17,7 @@ class SalaryLoanController extends Controller {
 		{
 			if (request()->ajax())
 			{
-				return datatables()->of(SalaryLoan::where('employee_id', $employee->id)->orderByRaw('DATE_FORMAT(first_date, "%y-%m")')->get())
+				return datatables()->of(SalaryLoan::where('employee_id', $employee->id)->orderByRaw("TO_CHAR(first_date, 'YY-MM')")->get())
 					->setRowId(function ($loan)
 					{
 						return $loan->id;

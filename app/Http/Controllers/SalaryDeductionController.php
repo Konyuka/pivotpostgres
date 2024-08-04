@@ -18,7 +18,7 @@ class SalaryDeductionController extends Controller
 		{
 			if (request()->ajax())
 			{
-				return datatables()->of(SalaryDeduction::where('employee_id', $employee->id)->orderByRaw('DATE_FORMAT(first_date, "%y-%m")')->get())
+				return datatables()->of(SalaryDeduction::where('employee_id', $employee->id)->orderByRaw("TO_CHAR(first_date, 'YY-MM')")->get())
 					->setRowId(function ($deduction)
 					{
 						return $deduction->id;

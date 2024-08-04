@@ -17,9 +17,14 @@ class SalaryBasicController extends Controller
             if (request()->ajax())
             {
                 $salary_basics = SalaryBasic::with('payslipMonthYear')
-                                            ->where('employee_id', $employee->id)
-                                            ->orderByRaw('DATE_FORMAT(first_date, "%y-%m")')
-                                            ->get();
+                    ->where('employee_id', $employee->id)
+                    ->orderByRaw("TO_CHAR(first_date, 'YY-MM')")
+                    ->get();
+
+                // $salary_basics = SalaryBasic::with('payslipMonthYear')
+                //                             ->where('employee_id', $employee->id)
+                //                             ->orderByRaw('DATE_FORMAT(first_date, "%y-%m")')
+                //                             ->get();
 
                 return datatables()->of($salary_basics)
                 ->setRowId(function ($row)
@@ -93,7 +98,11 @@ class SalaryBasicController extends Controller
             $salary_basic->basic_salary = $request->basic_salary;
             $salary_basic->save();
 
-            $salary_latest = SalaryBasic::where('employee_id',$salary_basic->employee_id)->select('payslip_type','basic_salary')->orderByRaw('DATE_FORMAT(first_date, "%y-%m") DESC')->first();
+            // $salary_latest = SalaryBasic::where('employee_id',$salary_basic->employee_id)->select('payslip_type','basic_salary')->orderByRaw('DATE_FORMAT(first_date, "%y-%m") DESC')->first();
+            $salary_latest = SalaryBasic::where('employee_id', $salary_basic->employee_id)
+                ->select('payslip_type', 'basic_salary')
+                ->orderByRaw("TO_CHAR(first_date, 'YY-MM') DESC")
+                ->first();
             $employee = Employee::find($salary_basic->employee_id);
             $employee->payslip_type = $salary_latest->payslip_type;
             $employee->basic_salary = $salary_latest->basic_salary; //Alawys Updated Last Month-Year wise
@@ -152,10 +161,14 @@ class SalaryBasicController extends Controller
             $salary_basic->basic_salary = $request->basic_salary;
             $salary_basic->update();
 
-            $salary_latest = SalaryBasic::where('employee_id',$salary_basic->employee_id)->select('payslip_type','basic_salary')->orderByRaw('DATE_FORMAT(first_date, "%y-%m") DESC')->first();
+            // $salary_latest = SalaryBasic::where('employee_id',$salary_basic->employee_id)->select('payslip_type','basic_salary')->orderByRaw('DATE_FORMAT(first_date, "%y-%m") DESC')->first();
+            $salary_latest = SalaryBasic::where('employee_id',$salary_basic->employee_id)->select('payslip_type', 'basic_salary')->orderByRaw("TO_CHAR(first_date, 'YY-MM') DESC")->first();
 
             $employee = Employee::find($salary_basic->employee_id);
-            $employee->payslip_type = $salary_latest->payslip_type;
+            $employee->payslip_type = $salary_latest->payslip_type;$salary_latest = SalaryBasic::where('employee_id', $salary_basic->employee_id)
+                ->select('payslip_type', 'basic_salary')
+                ->orderByRaw("TO_CHAR(first_date, 'YY-MM') DESC")
+                ->first();
             $employee->basic_salary = $salary_latest->basic_salary; //Alawys Updated Last Month-Year wise
             $employee->update();
 
@@ -176,7 +189,8 @@ class SalaryBasicController extends Controller
             $salary_basic->delete();
 
             //Extra
-            $salary_basic_latest = SalaryBasic::where('employee_id',$salary_basic->employee_id)->select('payslip_type','basic_salary')->orderByRaw('DATE_FORMAT(first_date, "%y-%m") DESC')->first();
+            // $salary_basic_latest = SalaryBasic::where('employee_id',$salary_basic->employee_id)->select('payslip_type','basic_salary')->orderByRaw('DATE_FORMAT(first_date, "%y-%m") DESC')->first();
+            $salary_basic_latest = SalaryBasic::where('employee_id',$salary_basic->employee_id)->select('payslip_type', 'basic_salary')->orderByRaw("TO_CHAR(first_date, 'YY-MM') DESC")->first();
             $employee = Employee::find($salary_basic->employee_id);
             $employee->payslip_type = $salary_basic_latest->payslip_type;
             $employee->basic_salary = $salary_basic_latest->basic_salary; //Alawys Updated Last Month-Year wise

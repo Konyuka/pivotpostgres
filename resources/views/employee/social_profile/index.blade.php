@@ -60,10 +60,14 @@
         </form>
     </div>
 @endif
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
-    $(document).ready(function () {
+    // $(document).ready(function () {
+    //     $(".alert").slideDown(300).delay(5000).slideUp(300);
+    // });
+    jQuery.noConflict();
+    jQuery(document).ready(function ($) {
         $(".alert").slideDown(300).delay(5000).slideUp(300);
     });
 
