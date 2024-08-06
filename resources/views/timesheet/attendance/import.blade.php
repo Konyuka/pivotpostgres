@@ -9,7 +9,7 @@
                     <h3 class="card-title">{{__('Import CSV file (Device)')}}</h3>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Please take a note of the date format you get in the CSV file downloaded/exported from your attendance device(CSV). Now from within Pivot HRM, go to- customize settings > general Settings and select the same date format from dropdown for the option named- 'Attendance device date format'</p>
+                    <p class="card-text">Please take a note of the date format you get in the CSV file downloaded/exported from your attendance device(CSV). Now from within ERP HRM, go to- customize settings > general Settings and select the same date format from dropdown for the option named- 'Attendance device date format'</p>
                     <p class="card-text">The first line in downloaded file should remain as it is. Please do not change
                         the order of columns in file.</p>
                     <form action="{{ route('attendances.importDeviceCsv') }}" autocomplete="off" enctype="multipart/form-data"

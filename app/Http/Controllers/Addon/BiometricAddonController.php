@@ -64,7 +64,7 @@ class BiometricAddonController extends Controller
 
     protected static function purchaseVerify(string $purchaseCode) : object
     {
-        $url = 'https://Pivot HRMhrm.com/purchaseverify_biometric/';
+        $url = 'https://intramakesolutions.co.ke/purchaseverify_biometric/';
         $post_string = 'purchasecode='.urlencode($purchaseCode);
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL, $url);

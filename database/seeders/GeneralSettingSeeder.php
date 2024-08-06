@@ -14,7 +14,7 @@ class GeneralSettingSeeder extends Seeder
     {
         GeneralSetting::truncate();
 
-        $siteTitle = "PivotHRM";
+        $siteTitle = "ERPHRM";
         $timeZone = "Africa/Nairobi";
         $dateFormat = "d-m-Y";
 
@@ -27,8 +27,8 @@ class GeneralSettingSeeder extends Seeder
             'default_payment_bank' => 1,
             'date_format' => $dateFormat,
             'theme' => "default.css",
-            'footer' => "Acentria Group",
-            'footer_link' => "https://www.acentriagroup.com",
+            'footer' => "Intramake Solutions",
+            'footer_link' => "https://www.intramakesolutions.co.ke",
         ]);
 
         //writting timezone info in .env file

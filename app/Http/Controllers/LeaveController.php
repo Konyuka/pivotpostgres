@@ -126,6 +126,7 @@ class LeaveController extends Controller
                 $data['start_date'] = $request->start_date;
                 $data['end_date'] = $request->end_date;
                 $data['total_days'] = $request->diff_date_hidden;
+                $data['is_notify'] = true;
 
                 if ($request->status == 'approved') {
                     try {

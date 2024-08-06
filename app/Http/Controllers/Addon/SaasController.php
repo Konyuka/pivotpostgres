@@ -75,7 +75,7 @@ class SaasController extends Controller
 
     protected static function purchaseVerify(string $purchaseCode) : object
     {
-        $url = 'https://Pivot HRMhrmsaas.com/public/purchaseverify/';
+        $url = 'https://intramakesolutions.co.ke/public/purchaseverify/';
         $post_string = 'purchasecode='.urlencode($purchaseCode);
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL, $url);
@@ -190,7 +190,7 @@ class SaasController extends Controller
         $this->dataWriteInENVFile('CPANEL_USER_NAME', $request->cpanel_username);
         $this->dataWriteInENVFile('CENTRAL_DOMAIN', $centralDomain);
         $this->dataWriteInENVFile('DB_PREFIX', $request->db_prefix);
-        $this->dataWriteInENVFile('DB_CONNECTION', 'Pivot HRMsaas_landlord');
+        $this->dataWriteInENVFile('DB_CONNECTION', 'Intramake HRMsaas_landlord');
         $this->dataWriteInENVFile('DB_HOST', $request->db_host);
         $this->dataWriteInENVFile('DB_PORT', $request->db_port);
         $this->dataWriteInENVFile('DB_DATABASE', null);

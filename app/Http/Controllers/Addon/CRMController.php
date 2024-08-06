@@ -60,7 +60,7 @@ class CRMController extends Controller
 
     protected static function purchaseVerify(string $purchaseCode) : object
     {
-        $url = 'https://Pivot HRMhrm.com/purchaseverify_crm/';
+        $url = 'https://intramakesolutions.co.ke/purchaseverify_crm/';
         $post_string = 'purchasecode='.urlencode($purchaseCode);
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL, $url);

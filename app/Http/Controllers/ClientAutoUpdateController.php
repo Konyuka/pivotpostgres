@@ -49,7 +49,7 @@ class ClientAutoUpdateController extends Controller
     /*
     |============================================================================================================
     | matchFilesFromServerBeforeExecute() -> from server it will be match with fetch-data-upgrade.json and fetch-data-bug.json file. And Check all Before Execute Files
-    | fileTransferProcess() -> it will send files from Pivot HRMhrm.com server to client setver
+    | fileTransferProcess() -> it will send files from Intramake HRMhrm.com server to client setver
     |============================================================================================================
     */
 
@@ -60,11 +60,11 @@ class ClientAutoUpdateController extends Controller
 
         if($action_type =='version_upgrade') {
             $message = 'Version Upgraded Successfully !!!';
-            $base_url = 'https://Pivot HRMhrm.com/version_upgrade_files/'; //$this->version_upgrade_base_url;
+            $base_url = 'https://intramakesolutions.co.ke/version_upgrade_files/'; //$this->version_upgrade_base_url;
             $getFilesAndLogsDetail = $this->getVersionUpgradeDetails();
         }else if($action_type == 'bug_update') {
             $message = 'Updated successfully';
-            $base_url = 'https://Pivot HRMhrm.com/bug_update_files/'; //$this->bug_update_base_url;
+            $base_url = 'https://intramakesolutions.co.ke/bug_update_files/'; //$this->bug_update_base_url;
             $getFilesAndLogsDetail = $this->getBugUpdateDetails();
         }
 

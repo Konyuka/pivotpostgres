@@ -3,7 +3,7 @@
     <div class="container">
         <div class="d-flex flex-column flex-md-row align-items-center pt-2 pb-2">
             <div>
-                <div class="navbar-brand">@if($general_settings->site_logo ?? "no")<img src="{{asset('/images/logo/'.$general_settings->site_logo)}}" width="50">&nbsp; &nbsp;@endif{{$general_settings->site_title ?? "Pivot HRM"}}</div>
+                <div class="navbar-brand">@if($general_settings->site_logo ?? "no")<img src="{{asset('/images/logo/'.$general_settings->site_logo)}}" width="50">&nbsp; &nbsp;@endif{{$general_settings->site_title ?? "ERP HRM"}}</div>
             </div>
 
             <div class="collapse navbar-collapse show" id="navbarTogglerDemo03">
