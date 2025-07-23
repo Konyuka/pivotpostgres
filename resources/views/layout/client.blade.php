@@ -188,7 +188,7 @@
     <footer class="main-footer">
         <div class="container-fluid">
             <p>&copy; {{$general_settings->site_title ?? "no title"}}
-                | {{ __('Developed by')}} <a href="https://lion-coders.com" class="external">{{ __('Saiba')}}</a>
+                | {{ __('Developed by')}} <a href="https://techduka.co.ke" class="external">{{ __('Saiba')}}</a>
             </p>
         </div>
     </footer>

@@ -8,10 +8,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>PeoplePro - Attendance Device Addon</title>
-    <meta name="description" content="Attendance Device Addon for PeoplePro- HR Management System" />
-    <meta name="author" content="LionCoders">
-    <meta name="copyright" content="LionCoders">
+    <title>PivotPro - Attendance Device Addon</title>
+    <meta name="description" content="Attendance Device Addon for PivotPro- HR Management System" />
+    <meta name="author" content="Techduka">
+    <meta name="copyright" content="Techduka">
     <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700">
     <link rel="stylesheet" href="public/documentation/attendance_device_addon/assets/css/documenter_style.css" media="all">
@@ -26,7 +26,7 @@
 <body>
 <div id="documenter_sidebar">
     <img src="public/documentation/attendance_device_addon/assets/images/logo.png" style="border: none;margin: 0 10px -10px;width: 40px">
-    <h1 style="display: inline;margin-top: -10px">PeoplePro - Attendance Device Addon</h1>
+    <h1 style="display: inline;margin-top: -10px">PivotPro - Attendance Device Addon</h1>
 
     <ul id="documenter_nav">
         <li><a class="current" href="#documenter_cover">Start</a></li>
@@ -46,16 +46,16 @@
 
 
     <section id="documenter_cover">
-        <h1>PeoplePro - Attendance Device Addon
+        <h1>PivotPro - Attendance Device Addon
         </h1>
         <div id="documenter_buttons">
         </div>
         <hr>
         <ul>
-            <li>by : LionCoders</li>
-            <li>Support : <a href="mailto:support@lion-coders.com">support@lion-coders.com</a></li>
+            <li>by : Techduka</li>
+            <li>Support : <a href="mailto:support@techduka.co.ke">support@techduka.co.ke</a></li>
         </ul>
-        <p>PeoplePro - Attendance Device Addon extends our popular HR software PeoplePro to manage the attendance taken by the biometric device in your organization.
+        <p>PivotPro - Attendance Device Addon extends our popular HR software PivotPro to manage the attendance taken by the biometric device in your organization.
         </p>
     </section>
     <section id="requirement">
@@ -64,7 +64,7 @@
             <hr class="notop">
         </div>
         <p>
-            To integrate the addon, you need to have existing installation of our HR software PeoplePro.
+            To integrate the addon, you need to have existing installation of our HR software PivotPro.
         </p>
     </section>
     <section id="install">
@@ -73,10 +73,10 @@
             <hr class="notop">
         </div>
         <p>
-        Unzip the folder you downloaded from Codecanyon. Copy the 'resources' folder from it and delete the existing 'resources' folder from your project folder where peoplepro installed. Then paste the copied one.
+        Unzip the folder you downloaded from Codecanyon. Copy the 'resources' folder from it and delete the existing 'resources' folder from your project folder where PivotPro installed. Then paste the copied one.
         </p>
         <p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/aJpehJfH3R0" title="PeoplePro - Attendance Device Addon" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/aJpehJfH3R0" title="PivotPro - Attendance Device Addon" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </p>
         <p>
             Congratulations! You have successfully installed the addon.
@@ -84,7 +84,7 @@
 
         <h2><strong>Help with installation</strong></h2>
         <p>
-            We can help you install on any cpanel based hosting for as little as $15. You can send the money via paypal to tarik_17@yahoo.co.uk. Contact us at support@lion-coders.com with you hosting details and payment proof and we'll take care of the rest.
+            We can help you install on any cpanel based hosting for as little as $15. You can send the money via paypal to tarik_17@yahoo.co.uk. Contact us at support@techduka.co.ke with you hosting details and payment proof and we'll take care of the rest.
         </p>
         <p>
             <b>Please note -</b> If you are installing on localhost, we'll charge $50 for anydesk/teamviewer support(installation).
@@ -124,11 +124,11 @@
             <img alt="" src="public/documentation/attendance_device_addon/assets/images/7.png">
         </p>
         <p>
-            8. Set attendance device date format in our software peoplepro.
+            8. Set attendance device date format in our software PivotPro.
             <img alt="" src="public/documentation/attendance_device_addon/assets/images/8.png">
         </p>
         <p>
-            9. Import attendance log in our software peoplepro.
+            9. Import attendance log in our software PivotPro.
             <img alt="" src="public/documentation/attendance_device_addon/assets/images/9.png">
         </p>
     </section>
@@ -145,9 +145,9 @@
             <h3>SUPPORT</h3>
             <hr class="notop">
         </div>
-        <p> We are happy to provide support for any issues within our software. We also provide customization service for as little as $15/hour. So if you have any features in mind or suugestions, please feel free to email us at support@lion-coders.com. Please note that we don't provide support though any other means (example- whatsapp, comments etc.). So, please refrain from commenting your queries on codecanyon or kocking us elsewhere.</p>
+        <p> We are happy to provide support for any issues within our software. We also provide customization service for as little as $15/hour. So if you have any features in mind or suugestions, please feel free to email us at support@techduka.co.ke. Please note that we don't provide support though any other means (example- whatsapp, comments etc.). So, please refrain from commenting your queries on codecanyon or kocking us elsewhere.</p>
         <p>Also, in case of any errors/bugs/issues on your installation, please contact us with your hosting details (url, username, password), software admin access (url, username, password) and purchase code. If your support period has expired, please renew support on codecanyon before contacting us for support.</p>
-        <p>Thank you and with best wishes - <a href="http://lion-coders.com">LionCoders</a></p>
+        <p>Thank you and with best wishes - <a href="http://techduka.co.ke">Techduka</a></p>
     </section>
 </div>
 <script type="text/javascript">

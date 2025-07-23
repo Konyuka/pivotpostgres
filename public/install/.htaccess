@@ -1,0 +1,17 @@
+# Completely disable mod_rewrite for install directory
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+</IfModule>
+
+# Enable PHP execution
+<Files "*.php">
+    Require all granted
+</Files>
+
+# Set default index
+DirectoryIndex index.php
+
+# Disable Laravel routing completely
+<IfModule mod_php.c>
+    php_flag auto_prepend_file Off
+</IfModule>
