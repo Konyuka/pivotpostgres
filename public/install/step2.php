@@ -177,14 +177,6 @@
                             <i class="fas fa-arrow-right"></i> Install Database
                         </button>
 
-                        <div class="mt-3">
-                            <small class="text-muted">
-                                Debugging:
-                                <button type="button" onclick="debugFormSubmit()" class="btn btn-sm btn-outline-secondary">
-                                    Test Form Data
-                                </button>
-                            </small>
-                        </div>
                     </div>
                 </form>
             </div>

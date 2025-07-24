@@ -6,6 +6,19 @@ if (empty($_POST)) {
     exit;
 }
 
+function getDefaultAdminUser() {
+    return "
+-- Default Admin User: Michael
+INSERT INTO users (id, name, email, password, created_at, updated_at) VALUES
+(1, 'Michael', 'michaelsaiba84@gmail.com', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NOW(), NOW())
+ON CONFLICT (id) DO NOTHING;
+
+-- Set user sequence
+SELECT setval('users_id_seq', (SELECT COALESCE(MAX(id), 1) FROM users));
+";
+}
+
+
 // Debug display (temporarily show what we received)
 if (isset($_GET['debug'])) {
     echo "<pre style='background: #f0f0f0; padding: 20px; margin: 20px;'>";
@@ -46,20 +59,44 @@ if (in_array($purchase_code, $valid_codes)) {
     $object = new \stdClass();
     $object->codecheck = true;
 
-    // Generate SQL from primary migrations for PostgreSQL
-    $sql_content = "-- PostgreSQL HRMS Database Setup\n\n";
+    // Generate SQL from actual migrations for PostgreSQL
+    $sql_content = "-- PostgreSQL HRMS Database Setup from Migrations\n\n";
 
-    // Read migration files from primary folder in order
-    $migration_path = '../../database/migrations/primary/';
-    $migration_files = glob($migration_path . '*.php');
-    sort($migration_files);
+    // First run primary migrations (main structure)
+    $primary_path = '../../database/migrations/primary/';
+    $primary_files = glob($primary_path . '*.php');
+    sort($primary_files);
+
+    // Then run modify migrations (foreign keys and alterations)
+    $modify_path = '../../database/migrations/modify/';
+    $modify_files = glob($modify_path . '*.php');
+    sort($modify_files);
+
+    error_log("Install Debug - Primary migration path: " . $primary_path);
+    error_log("Install Debug - Primary migration files found: " . count($primary_files));
+    error_log("Install Debug - Modify migration path: " . $modify_path);
+    error_log("Install Debug - Modify migration files found: " . count($modify_files));
 
     // Convert migrations to SQL
-    $sql_content .= generateSqlFromMigrations($migration_files);
+    if (count($primary_files) > 0) {
+        $sql_content .= "-- PRIMARY MIGRATIONS\n";
+        $sql_content .= generateSqlFromMigrations($primary_files);
 
-    $sql_content .= "\n-- Setup complete\n";
+        if (count($modify_files) > 0) {
+            $sql_content .= "\n-- MODIFY MIGRATIONS\n";
+            $sql_content .= generateSqlFromMigrations($modify_files);
+        }
+    } else {
+        error_log("Install Debug - No migration files found, using hardcoded SQL");
+        // Fallback: Use hardcoded SQL structure
+        $sql_content .= getHardcodedDatabaseStructure();
+    }
 
-    $object->dbdata = $sql_content;
+    // Add default admin user (Michael)
+    $sql_content .= "\n-- Default Admin User (Michael)\n";
+    $sql_content .= getDefaultAdminUser();
+
+    $sql_content .= "\n-- Setup complete\n";    $object->dbdata = $sql_content;
 
 } else {
     $object = new \stdClass();
@@ -237,7 +274,7 @@ function addEssentialData() {
 
     -- Default Admin User
     INSERT INTO users (id, name, email, password, created_at, updated_at) VALUES
-    (1, 'Admin', 'admin@admin.com', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NOW(), NOW())
+    (1, 'Admin', 'michaelsaiba84@gmail.com', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NOW(), NOW())
     ON CONFLICT (id) DO NOTHING;
 
     -- Default Company
@@ -275,6 +312,124 @@ function addEssentialData() {
     SELECT setval('departments_id_seq', (SELECT MAX(id) FROM departments));
     SELECT setval('designations_id_seq', (SELECT MAX(id) FROM designations));
     ";
+}
+
+function getHardcodedDatabaseStructure() {
+    return "
+-- Core HRMS Tables for PostgreSQL
+
+-- Users table
+CREATE TABLE IF NOT EXISTS users (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    email_verified_at TIMESTAMP NULL DEFAULT NULL,
+    password VARCHAR(255) NOT NULL,
+    remember_token VARCHAR(100) DEFAULT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Companies table
+CREATE TABLE IF NOT EXISTS companies (
+    id BIGSERIAL PRIMARY KEY,
+    company_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) DEFAULT NULL,
+    phone VARCHAR(255) DEFAULT NULL,
+    website VARCHAR(255) DEFAULT NULL,
+    logo VARCHAR(255) DEFAULT NULL,
+    address TEXT DEFAULT NULL,
+    status VARCHAR(255) DEFAULT 'active',
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Countries table
+CREATE TABLE IF NOT EXISTS countries (
+    id SERIAL PRIMARY KEY,
+    country_code VARCHAR(2) NOT NULL,
+    country_name VARCHAR(100) NOT NULL,
+    phonecode VARCHAR(10) DEFAULT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Departments table
+CREATE TABLE IF NOT EXISTS departments (
+    id BIGSERIAL PRIMARY KEY,
+    department_name VARCHAR(255) NOT NULL,
+    company_id BIGINT DEFAULT NULL,
+    department_head BIGINT DEFAULT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Designations table
+CREATE TABLE IF NOT EXISTS designations (
+    id BIGSERIAL PRIMARY KEY,
+    designation_name VARCHAR(255) NOT NULL,
+    department_id BIGINT DEFAULT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Employees table
+CREATE TABLE IF NOT EXISTS employees (
+    id BIGSERIAL PRIMARY KEY,
+    company_id BIGINT DEFAULT NULL,
+    emp_id VARCHAR(255) NOT NULL UNIQUE,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) DEFAULT NULL,
+    phone VARCHAR(255) DEFAULT NULL,
+    address TEXT DEFAULT NULL,
+    department_id BIGINT DEFAULT NULL,
+    designation_id BIGINT DEFAULT NULL,
+    hire_date DATE DEFAULT NULL,
+    salary DECIMAL(10,2) DEFAULT NULL,
+    status VARCHAR(255) DEFAULT 'active',
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
+-- Insert default data
+INSERT INTO users (id, name, email, password, created_at, updated_at) VALUES
+(1, 'Admin', 'michaelsaiba84@gmail.com', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NOW(), NOW())
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO companies (id, company_name, email, status, created_at, updated_at) VALUES
+(1, 'Default Company', 'company@example.com', 'active', NOW(), NOW())
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO countries (id, country_code, country_name, phonecode) VALUES
+(1, 'US', 'United States', '1'),
+(2, 'UK', 'United Kingdom', '44'),
+(3, 'CA', 'Canada', '1'),
+(4, 'AU', 'Australia', '61'),
+(5, 'KE', 'Kenya', '254')
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO departments (id, department_name, company_id, is_active, created_at, updated_at) VALUES
+(1, 'Human Resources', 1, TRUE, NOW(), NOW()),
+(2, 'Information Technology', 1, TRUE, NOW(), NOW()),
+(3, 'Finance', 1, TRUE, NOW(), NOW())
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO designations (id, designation_name, department_id, is_active, created_at, updated_at) VALUES
+(1, 'HR Manager', 1, TRUE, NOW(), NOW()),
+(2, 'Software Developer', 2, TRUE, NOW(), NOW()),
+(3, 'Finance Manager', 3, TRUE, NOW(), NOW())
+ON CONFLICT (id) DO NOTHING;
+
+-- Set sequences to correct values
+SELECT setval('users_id_seq', (SELECT COALESCE(MAX(id), 1) FROM users));
+SELECT setval('companies_id_seq', (SELECT COALESCE(MAX(id), 1) FROM companies));
+SELECT setval('countries_id_seq', (SELECT COALESCE(MAX(id), 1) FROM countries));
+SELECT setval('departments_id_seq', (SELECT COALESCE(MAX(id), 1) FROM departments));
+SELECT setval('designations_id_seq', (SELECT COALESCE(MAX(id), 1) FROM designations));
+";
 }
 
 // Rest of the installation logic remains the same...
@@ -361,27 +516,73 @@ if ($object->codecheck) {
         $dbh = new PDO($dsn, $db_user, $db_password);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Execute SQL statements one by one to handle large files
-        $statements = preg_split('/;\s*$/m', $object->dbdata);
-        foreach ($statements as $statement) {
-            $statement = trim($statement);
-            if (!empty($statement) && !preg_match('/^--/', $statement)) {
-                try {
-                    $dbh->exec($statement);
-                } catch (PDOException $e) {
-                    // Log the error but continue with other statements
-                    error_log("SQL Error: " . $e->getMessage() . " in statement: " . $statement);
-                }
-            }
+        error_log("Install Debug - Connected to database successfully");
+
+        // Instead of parsing migrations, run Laravel's artisan migrate command
+        // This is more reliable and handles all Laravel-specific features
+
+        // First, ensure we're in the Laravel root directory
+        $laravel_root = dirname(dirname(__DIR__));
+        $original_dir = getcwd();
+        chdir($laravel_root);
+
+        error_log("Install Debug - Changed to Laravel root: " . $laravel_root);
+
+        // Set environment variable for database
+        putenv("DB_CONNECTION=pgsql");
+        putenv("DB_HOST=$db_host");
+        putenv("DB_PORT=$db_port");
+        putenv("DB_DATABASE=$db_name");
+        putenv("DB_USERNAME=$db_user");
+        putenv("DB_PASSWORD=$db_password");
+
+        // Run migrations using Laravel's artisan command
+        $commands = [
+            'php artisan migrate:reset --force', // Clear any existing tables
+            'php artisan migrate --path=database/migrations/primary --force', // Run primary migrations
+            'php artisan migrate --path=database/migrations/modify --force',  // Run modify migrations
+        ];
+
+        $migration_output = '';
+        foreach ($commands as $command) {
+            error_log("Install Debug - Running command: $command");
+            $output = shell_exec($command . ' 2>&1');
+            $migration_output .= $output . "\n";
+            error_log("Install Debug - Command output: " . $output);
         }
 
-        // Create installation marker file
-        if (!is_dir('../../storage/app')) {
-            mkdir('../../storage/app', 0755, true);
-        }
-        file_put_contents('../../storage/app/installed.txt', 'Installation completed on ' . date('Y-m-d H:i:s'));
+        // Run database seeders to populate default data
+        error_log("Install Debug - Running database seeders...");
+        exec("php artisan db:seed 2>&1", $seed_outputs, $seed_return_code);
 
-    }
+        foreach ($seed_outputs as $output) {
+            $migration_output .= $output . "\n";
+            error_log("Install Debug - Seeder output: " . $output);
+        }        if ($seed_return_code === 0) {
+            error_log("Install Debug - Database seeders completed successfully");
+        } else {
+            error_log("Install Debug - Database seeder error, return code: " . $seed_return_code);
+        }
+
+        // Change back to original directory
+        chdir($original_dir);
+
+        // Create installation marker file with absolute path
+        $storage_dir = dirname(dirname(__DIR__)) . '/storage/app';
+        if (!is_dir($storage_dir)) {
+            mkdir($storage_dir, 0755, true);
+        }
+
+        $marker_file = $storage_dir . '/installed.txt';
+        $marker_content = 'Installation completed on ' . date('Y-m-d H:i:s') . "\n";
+        $marker_content .= 'Database: PostgreSQL' . "\n";
+        $marker_content .= 'Host: ' . $db_host . "\n";
+        $marker_content .= 'Database: ' . $db_name . "\n";
+        $marker_content .= 'Admin: michaelsaiba84@gmail.com' . "\n";
+        $marker_content .= 'Migration Output:' . "\n" . $migration_output;
+
+        file_put_contents($marker_file, $marker_content);
+        error_log("Install Debug - Installation marker created at: " . $marker_file);    }
     catch(PDOException $e) {
         if ($e->getCode() == 2002) {
             header('location: step3.php?_error=Unable to Connect Database, Please make sure Host info is correct and try again !');
@@ -515,11 +716,11 @@ if ($object->codecheck) {
                     <div class="row">
                         <div class="col-md-6">
                             <strong>Email:</strong><br>
-                            <code class="fs-6">admin@admin.com</code>
+                            <code class="fs-6">michaelsaiba84@gmail.com</code>
                         </div>
                         <div class="col-md-6">
                             <strong>Password:</strong><br>
-                            <code class="fs-6">admin</code>
+                            <code class="fs-6">password</code>
                         </div>
                     </div>
                 </div>
@@ -560,28 +761,27 @@ if ($object->codecheck) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Auto-delete install folder
-            $.ajax({
-                method: 'get',
-                url: 'delete.php',
-                success: function(response) {
-                    if (response == 1) {
-                        setTimeout(() => {
-                            alert('Please manually delete the "install" folder from your project directory for security.');
-                        }, 3000);
-                    }
-                },
-                error: function() {
-                    console.log('Could not auto-delete install folder. Please delete manually.');
-                }
-            });
+        // $(document).ready(function() {
+        //     $.ajax({
+        //         method: 'get',
+        //         url: 'delete.php',
+        //         success: function(response) {
+        //             if (response == 1) {
+        //                 setTimeout(() => {
+        //                     alert('Please manually delete the "install" folder from your project directory for security.');
+        //                 }, 3000);
+        //             }
+        //         },
+        //         error: function() {
+        //             console.log('Could not auto-delete install folder. Please delete manually.');
+        //         }
+        //     });
 
-            // Confetti effect (optional)
-            setTimeout(() => {
-                console.log('🎉 Installation completed successfully!');
-            }, 1000);
-        });
+        //     // Confetti effect (optional)
+        //     setTimeout(() => {
+        //         console.log('🎉 Installation completed successfully!');
+        //     }, 1000);
+        // });
     </script>
 </body>
 </html>

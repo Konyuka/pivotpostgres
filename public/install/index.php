@@ -147,12 +147,6 @@
                             <i class="fas fa-arrow-right"></i> Continue to Database Setup
                         </button>
 
-                        <!-- Alternative Direct Link -->
-                        <div class="mt-3">
-                            <a href="/install/step2.php" class="btn btn-outline-secondary" id="directLinkBtn" style="display: none;">
-                                <i class="fas fa-external-link-alt"></i> Direct Link to Step 2
-                            </a>
-                        </div>
                     </div>
                 </form>
 

@@ -1,4 +1,4 @@
-<p align="center"><img src="https://acentriagroup.com/wp-content/uploads/2023/08/acentriagrouplogo.png" width="400"></p>
+<p align="center"><img src="" width="400"></p>
 
 
 
